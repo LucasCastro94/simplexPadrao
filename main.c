@@ -10,6 +10,20 @@
 int main()
 {
     setlocale(LC_ALL,"portuguese");
+
+     system("color 3F");
+     printf("\n\t\t\t\tProjeto Programação Linear - Simplex Padrão\n-----------------------------------------------------------------------------------------------------\n");
+     printf("\nDesenvolvido por: Lucas Fernandes de Castro\nCurso: ADS 5 semestre");
+     printf("\nProfessor: Andre de Lima");
+
+      printf("\n\n\n\nAperte enter para continuar...");
+      getchar();
+      system("cls");
+
+
+
+
+
     system("color 5F");
     int tamVar,tamRest;
 
@@ -24,7 +38,7 @@ int main()
     float restricoes[tamRest][tamVar]; // lista de restrição
     float limitacao[tamRest]; //valores das limitações por linha
     float variaveis[tamVar]; // valor das variaveis
-
+    char foMax[100];
     char concat[100]="",catInt[10]="", catFloat[10]="";
     int i = 0, j = 0 ;
 
@@ -47,7 +61,7 @@ int main()
         fflush(stdin);
 
         sprintf(catInt,"%d",i+1);
-        sprintf(catFloat,"%.1f",variaveis[i]);
+        sprintf(catFloat,"%.f",variaveis[i]);
 
         strcat(concat,catFloat);
         strcat(concat,"X");
@@ -57,8 +71,8 @@ int main()
 
 
     }
-
-    printf("\nFoMax(z)=%s\n-------------------------------------------",concat);
+    strcpy(foMax,concat);
+    printf("\nDefinido FoMax(Z)\n-------------------------------------------");
     printf("\nEnter para continuar..");
     getchar();
     system("cls");
@@ -73,12 +87,9 @@ int main()
         for(j=0; j<tamVar; j++)
         {
 
-            do
-            {
                 printf("\nRestrição de X%d=",j+1);
                 scanf("%f",&restricoes[i][j]);
-            }
-            while(restricoes[i][j]<0);
+
 
             if(j==tamVar-1)
             {
@@ -108,14 +119,14 @@ int main()
 
     //exibindo as restrição
 
-    printf("\n\nRestrições definidas\n---------------------------------------\n");
+
 
     for(i=0; i<tamRest; i++)
     {
 
         for(j=0; j<tamVar; j++)
         {
-            sprintf(catFloat,"%.1f",restricoes[i][j]);
+            sprintf(catFloat,"%.f",restricoes[i][j]);
             sprintf(catInt,"%d",j+1);
             strcat(concat,catFloat);
 
@@ -128,7 +139,7 @@ int main()
             if(j+1==tamVar)
             {
                 strcat(concat,"<=");
-                sprintf(catFloat,"%.1f",limitacao[i]);
+                sprintf(catFloat,"%.f",limitacao[i]);
                 strcat(concat,catFloat);
 
 
@@ -143,12 +154,30 @@ int main()
         bzero(concat,100);
 
     }
+    fflush(stdin);
+    fflush(stdout);
+
+    system("cls");
+
+    printf("\n\nFoMax(z)=%s",foMax);
+    printf("\nSujeito a\n---------------------------------------");
 
     for(i=0; i<tamRest; i++)
     {
 
         printf("\n%s",listViewRestricao[i]);
     }
+    printf("\n");
+    for(i=0;i<tamVar;i++) printf("\nX%d>=0",i+1);
+
+
+
+
+
+     printf("\n\nEnter para continuar..");
+     getchar();
+
+    system("cls");
 
     fflush(stdin);
 
@@ -175,16 +204,6 @@ int main()
         }
     }
 
-    printf("\n\n");
-    printf("\n\n");
-
-
-/*exibindo linha de z
-    for(i=0; i<tamLinha; i++)
-    {
-        printf(" %.1f ",linhaZ[i]);
-    }
-    */
 
     // matriz das restricao com folga
     float matRestComFolga[tamRest][tamLinha];
@@ -284,13 +303,8 @@ for(i=0;i<tamLinha;i++)
 
     }
 
-
-
-
-
-
-
-printf("\n\nmenor valor %.1f na coluna %d",menor,columIn);
+ printf("\n\n\t\t\t\tSolução 1\n----------------------------------------------------------------------------------------------------\n");
+ printf("VALOR DE Z = 0  --> Solução não Ótima\n\n");
 
 
 int linhaOUT=-1;
@@ -310,9 +324,6 @@ for(i=1;i<=tamRest;i++)
 
     }
 }
-
-printf("\n\nmenor =%.1f elemento pivo = %.1f da linha %d",menor,elementoPivo,linhaOUT);
-
 
 float vLinhaPivo[tamLinha];
 float nLinhaPivo[tamLinha];
@@ -408,7 +419,8 @@ for(i=0;i<tamLinha;i++)
 
 if(naoOtimo==1)
 {
-    printf("\n\nVALOR DE Z = %.2f Solução Não Ótima",linhaZ[tamLinha-1]);
+    printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
+    printf("\n\nVALOR DE Z = %.2f --> Solução Não Ótima",linhaZ[tamLinha-1]);
 
     for(i=0; i<tamRest+1; i++)
     {
@@ -418,7 +430,13 @@ if(naoOtimo==1)
 }
 else if(naoOtimo==0)
 {
-    printf("\n\nVALOR DE Z = %.2f Solução Ótima",linhaZ[tamLinha-1]);
+    printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
+    printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    printf("\n \t\t\tVALOR DE Z = %.2f --> Solução Ótima",linhaZ[tamLinha-1]);
+    printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    printf("\nAperte enter para sair");
+    getchar();
+    exit(0);
     break;
 }
 
