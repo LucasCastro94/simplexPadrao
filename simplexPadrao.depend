@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1665763346 source:c:\users\lucas\documents\fonts c\simplexpadrao\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+
