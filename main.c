@@ -34,6 +34,7 @@ int main()
 
     printf("Quantas restrições:");
     scanf("%d",&tamRest);
+    system("cls");
 
     float restricoes[tamRest][tamVar]; // lista de restrição
     float limitacao[tamRest]; //valores das limitações por linha
@@ -242,6 +243,7 @@ int main()
      printf("\n\n");
 
 
+     //criando a nova matriz
 float matrizAtt[tamRest+1][tamLinha];
 float menor = 99999999;
 int columIn = -1;
@@ -272,6 +274,7 @@ int contFolga =1;
 char z = 'Z';
 char b = 'B';
       printf("\n\t\t\t\tALGORITMO 1\n----------------------------------------------------------------------------------------------------\n");
+      //header
 for(i=0;i<tamLinha;i++)
 {
     if(i==0)
@@ -303,8 +306,6 @@ for(i=0;i<tamLinha;i++)
 
     }
 
- printf("\n\n\t\t\t\tSolução 1\n----------------------------------------------------------------------------------------------------\n");
- printf("VALOR DE Z = 0  --> Solução não Ótima\n\n");
 
 
 int linhaOUT=-1;
@@ -312,6 +313,7 @@ menor=99999999;
 float elementoPivo=0;
 
 
+// pegando linha out e pivo
 for(i=1;i<=tamRest;i++)
 {   //coluna input                               //coeficiente
     float a = (matrizAtt[i][tamLinha-1] / matrizAtt[i][columIn]);
@@ -325,13 +327,20 @@ for(i=1;i<=tamRest;i++)
     }
 }
 
+
+printf("\n\n\t\t\t\tSolução 1\n----------------------------------------------------------------------------------------------------\n");
+printf("VALOR DE Z = 0  --> Solução não Ótima\n\n");
+printf("Elemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
+
 float vLinhaPivo[tamLinha];
 float nLinhaPivo[tamLinha];
 float auxLinhaPivo[tamLinha];
 float novaLinha[tamLinha];
 
+//mapeando a velha linha pivo
 for(i=0;i<tamLinha;i++) vLinhaPivo[i] = matrizAtt[linhaOUT][i];
 
+// mapeando a nova linha pivo
 for(i=0;i<tamLinha;i++)
 {
     nLinhaPivo[i]=(vLinhaPivo[i]/elementoPivo);
@@ -340,6 +349,7 @@ for(i=0;i<tamLinha;i++)
 float novaMatriz[tamRest+1][tamLinha];
 
 
+//criando a novaMatriz
 for(i=0;i<tamRest+1;i++)
 {
 
@@ -368,8 +378,10 @@ while(1)
 {
 
      contAlgorit++;
-      printf("\n\n\t\t\t\tALGORITMO %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
+      printf("\n\n\n\n\n\t\t\t\tALGORITMO %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
       contFolga=1;
+
+ //header
 for(i=0;i<tamLinha;i++)
 {
     if(i==0)
@@ -407,8 +419,11 @@ for(i=0;i<tamLinha;i++)
 
     }
 
+
+
 naoOtimo=0;
 
+//se linha z existe negativo entao 1
 for(i=0;i<tamLinha;i++)
 {
      if(linhaZ[i]<0)
@@ -470,8 +485,7 @@ for(i=1;i<=tamRest;i++)
 
     }
 }
-
-
+printf("\n\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
 
 
 for(i=0;i<tamLinha;i++) vLinhaPivo[i] = matrizAtt[linhaOUT][i];
