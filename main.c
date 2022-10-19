@@ -258,10 +258,11 @@ int columIn = -1;
           if(i==0)
           {
               matrizAtt[i][j]=linhaZ[j];
-              if(matrizAtt[i][j]<menor)
+              if(matrizAtt[i][j] < menor)
               {
                   menor =  matrizAtt[i][j];
                   columIn = j;
+                  printf("\ncoluna menor e %d",columIn);
 
               }
           }else{
@@ -317,7 +318,7 @@ float elementoPivo=0;
 for(i=1;i<=tamRest;i++)
 {   //coluna input                               //coeficiente
     float a = (matrizAtt[i][tamLinha-1] / matrizAtt[i][columIn]);
-    if(a<menor && a > 0)
+    if(a<=menor && a > 0)
     {
         menor = a;
         elementoPivo = matrizAtt[i][columIn];
@@ -394,9 +395,9 @@ while(1)
 printf("\n\n\t\t\t\tSolução 1\n----------------------------------------------------------------------------------------------------\n");
 printf("\n\nVALOR DE Z = 0  --> Solução não Ótima\n");
 printf("\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
-printf("\n\nVB\n-----\n%s",varbasic);
+printf("\n\nVB\n______________\n%s",varbasic);
 printf("\n\n");
-printf("VNB\n-----\n%s",varNbasic);
+printf("VNB\n______________\n%s",varNbasic);
 
 
 
@@ -619,9 +620,9 @@ while(1)
 
 printf("\n\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
 
-printf("\n\nVB\n-----\n%s",varbasic);
+printf("\n\nVB\n______________\n%s",varbasic);
 printf("\n\n");
-printf("VNB\n-----\n%s",varNbasic);
+printf("VNB\n______________\n%s",varNbasic);
 
 
 for(i=0;i<tamLinha;i++) vLinhaPivo[i] = matrizAtt[linhaOUT][i];
