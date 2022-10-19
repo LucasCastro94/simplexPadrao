@@ -326,11 +326,81 @@ for(i=1;i<=tamRest;i++)
 
     }
 }
+//VB e VNB
+float base;
+int contbase=0;
+int cont2=0;
+int linha;
+int tamCol= (tamRest+1);
+char auxVar[100]="";
+char varbasic[100]="";
+char varNbasic[100]="";
+contFolga=1;
 
+while(1)
+{
+    for(int x=1; x<tamCol; x++)
+    {
+     if(matrizAtt[x][cont2]>1 || matrizAtt[x][cont2]<0)
+     {
+        contbase++;
+     }
+     else if(matrizAtt[x][cont2]==1)
+     {
+              contbase++;
+              linha=x;
+     }
+
+    }
+    if(contbase==1){
+
+       if(cont2>0 && cont2<tamLinha-1)
+       {
+            base=matrizAtt[linha][tamLinha-1];
+        if(cont2>tamVar)
+        {
+            sprintf(auxVar,"XF%d=%.1f\n",contFolga,base);
+            contFolga++;
+        }else sprintf(auxVar,"X%d=%.1f\n",cont2,base);
+
+
+
+
+       strcat(varbasic,auxVar);
+       }
+
+
+       }else
+       {
+        if(cont2>0 && cont2<tamLinha-1)
+       {
+            if(cont2>tamVar)
+        {
+           sprintf(auxVar,"XF%d=0\n",contFolga,base);
+           contFolga++;
+        }else sprintf(auxVar,"X%d=0\n",cont2,base);
+
+       strcat(varNbasic,auxVar);
+       }
+       }
+
+
+    contbase=0;
+    cont2++;
+
+    if(cont2==tamLinha) break;
+}
 
 printf("\n\n\t\t\t\tSolução 1\n----------------------------------------------------------------------------------------------------\n");
-printf("VALOR DE Z = 0  --> Solução não Ótima\n\n");
-printf("Elemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
+printf("\n\nVALOR DE Z = 0  --> Solução não Ótima\n");
+printf("\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
+printf("\n\nVB\n-----\n%s",varbasic);
+printf("\n\n");
+printf("VNB\n-----\n%s",varNbasic);
+
+
+
+
 
 float vLinhaPivo[tamLinha];
 float nLinhaPivo[tamLinha];
@@ -485,7 +555,73 @@ for(i=1;i<=tamRest;i++)
 
     }
 }
+
+bzero(auxVar,100);
+bzero(varbasic,100);
+bzero(varNbasic,100);
+contFolga=1;
+
+cont2=0;
+while(1)
+{
+    for(int x=1; x<tamCol; x++)
+    {
+     if(novaMatriz[x][cont2]>1 || novaMatriz[x][cont2]<0)
+     {
+        contbase++;
+     }
+     else if(novaMatriz[x][cont2]==1)
+     {
+              contbase++;
+              linha=x;
+     }
+
+    }
+    if(contbase==1){
+
+       if(cont2>0 && cont2<tamLinha-1)
+       {
+            base=novaMatriz[linha][tamLinha-1];
+        if(cont2>tamVar)
+        {
+            sprintf(auxVar,"XF%d=%.1f\n",contFolga,base);
+            contFolga++;
+        }else sprintf(auxVar,"X%d=%.1f\n",cont2,base);
+
+
+
+
+       strcat(varbasic,auxVar);
+       }
+
+
+       }else
+       {
+        if(cont2>0 && cont2<tamLinha-1)
+       {
+            if(cont2>tamVar)
+        {
+           sprintf(auxVar,"XF%d=0\n",contFolga,base);
+           contFolga++;
+        }else sprintf(auxVar,"X%d=0\n",cont2,base);
+
+       strcat(varNbasic,auxVar);
+       }
+       }
+
+
+    contbase=0;
+    cont2++;
+
+    if(cont2==tamLinha) break;
+}
+
+
 printf("\n\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
+
+printf("\n\nVB\n-----\n%s",varbasic);
+printf("\n\n");
+printf("VNB\n-----\n%s",varNbasic);
 
 
 for(i=0;i<tamLinha;i++) vLinhaPivo[i] = matrizAtt[linhaOUT][i];
