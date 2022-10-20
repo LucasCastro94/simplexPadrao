@@ -262,7 +262,6 @@ int columIn = -1;
               {
                   menor =  matrizAtt[i][j];
                   columIn = j;
-                  printf("\ncoluna menor e %d",columIn);
 
               }
           }else{
@@ -271,9 +270,11 @@ int columIn = -1;
         }
 
     }
+
 int contFolga =1;
 char z = 'Z';
 char b = 'B';
+
       printf("\n\t\t\t\tALGORITMO 1\n----------------------------------------------------------------------------------------------------\n");
       //header
 for(i=0;i<tamLinha;i++)
@@ -503,59 +504,7 @@ for(i=0;i<tamLinha;i++)
      }
 }
 
-if(naoOtimo==1)
-{
-    printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
-    printf("\n\nVALOR DE Z = %.2f --> Solução Não Ótima",linhaZ[tamLinha-1]);
-
-    for(i=0; i<tamRest+1; i++)
-    {
-        for(j=0;j<tamLinha;j++){matrizAtt[i][j]=novaMatriz[i][j];}
-    }
-
-}
-else if(naoOtimo==0)
-{
-    printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
-    printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    printf("\n \t\t\tVALOR DE Z = %.2f --> Solução Ótima",linhaZ[tamLinha-1]);
-    printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    printf("\nAperte enter para sair");
-    getchar();
-    exit(0);
-    break;
-}
-
-// nova linha
-
-linhaOUT=-1;
-menor=99999999;
-elementoPivo=0;
-
- for(i=0; i<tamLinha; i++)
-    {
-     if(matrizAtt[0][i]<menor)
-     {
-         menor = matrizAtt[0][i];
-         columIn=i;
-     }
-    }
-
-    menor=99999999;
-
-for(i=1;i<=tamRest;i++)
-{   //coluna input                               //coeficiente
-    float a = (matrizAtt[i][tamLinha-1] / matrizAtt[i][columIn]);
-
-    if(a<menor && a > 0)
-    {
-        menor = a;
-        elementoPivo = matrizAtt[i][columIn];
-        linhaOUT = i;
-
-
-    }
-}
+//// bug no exercicio 8
 
 bzero(auxVar,100);
 bzero(varbasic,100);
@@ -616,6 +565,66 @@ while(1)
 
     if(cont2==tamLinha) break;
 }
+
+
+if(naoOtimo==1)
+{
+    printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
+    printf("\n\nVALOR DE Z = %.2f --> Solução Não Ótima",linhaZ[tamLinha-1]);
+
+    for(i=0; i<tamRest+1; i++)
+    {
+        for(j=0;j<tamLinha;j++){matrizAtt[i][j]=novaMatriz[i][j];}
+    }
+
+}
+else if(naoOtimo==0)
+{
+    printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
+    printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    printf("\n \t\t\tVALOR DE Z = %.2f --> Solução Ótima",linhaZ[tamLinha-1]);
+    printf("\n\nVB\n______________\n%s",varbasic);
+    printf("\n\n");
+    printf("VNB\n______________\n%s",varNbasic);
+    printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    printf("\nAperte enter para sair");
+    getchar();
+    exit(0);
+    break;
+}
+
+// nova linha
+
+linhaOUT=-1;
+menor=99999999;
+elementoPivo=0;
+
+ for(i=0; i<tamLinha; i++)
+    {
+     if(matrizAtt[0][i]<menor)
+     {
+         menor = matrizAtt[0][i];
+         columIn=i;
+     }
+    }
+
+    menor=99999999;
+
+for(i=1;i<=tamRest;i++)
+{   //coluna input                               //coeficiente
+    float a = (matrizAtt[i][tamLinha-1] / matrizAtt[i][columIn]);
+
+    if(a<menor && a > 0)
+    {
+        menor = a;
+        elementoPivo = matrizAtt[i][columIn];
+        linhaOUT = i;
+
+
+    }
+}
+
+
 
 
 printf("\n\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
