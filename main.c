@@ -11,14 +11,14 @@ int main()
 {
     setlocale(LC_ALL,"portuguese");
 
-     system("color 3F");
-     printf("\n\t\t\t\tProjeto Programação Linear - Simplex Padrão\n-----------------------------------------------------------------------------------------------------\n");
-     printf("\nDesenvolvido por: Lucas Fernandes de Castro\nCurso: ADS 5 semestre");
-     printf("\nProfessor: Andre de Lima");
+    system("color 3F");
+    printf("\n\t\t\t\tProjeto Programação Linear - Simplex Padrão\n-----------------------------------------------------------------------------------------------------\n");
+    printf("\nDesenvolvido por: Lucas Fernandes de Castro\nCurso: ADS 5 semestre");
+    printf("\nProfessor: Andre de Lima");
 
-      printf("\n\n\n\nAperte enter para continuar...");
-      getchar();
-      system("cls");
+    printf("\n\n\n\nAperte enter para continuar...");
+    getchar();
+    system("cls");
 
 
 
@@ -88,8 +88,8 @@ int main()
         for(j=0; j<tamVar; j++)
         {
 
-                printf("\nRestrição de X%d=",j+1);
-                scanf("%f",&restricoes[i][j]);
+            printf("\nRestrição de X%d=",j+1);
+            scanf("%f",&restricoes[i][j]);
 
 
             if(j==tamVar-1)
@@ -119,8 +119,6 @@ int main()
 
 
     //exibindo as restrição
-
-
 
     for(i=0; i<tamRest; i++)
     {
@@ -169,14 +167,14 @@ int main()
         printf("\n%s",listViewRestricao[i]);
     }
     printf("\n");
-    for(i=0;i<tamVar;i++) printf("\nX%d>=0",i+1);
+    for(i=0; i<tamVar; i++) printf("\nX%d>=0",i+1);
 
 
 
 
 
-     printf("\n\nEnter para continuar..");
-     getchar();
+    printf("\n\nEnter para continuar..");
+    getchar();
 
     system("cls");
 
@@ -209,7 +207,7 @@ int main()
     // matriz das restricao com folga
     float matRestComFolga[tamRest][tamLinha];
 
-   int cont=1;
+    int cont=1;
 
 //mapeando matriz de restrição com folga
     for(i=0; i<tamRest; i++)
@@ -220,546 +218,497 @@ int main()
         {
             if(j<=tamVar)
             {
-                 matRestComFolga[i][j]=restricoes[i][j-1]; // dado restrição 10x1+20x2+x1=20 nesse momento -> 0 10 20 0 0 0 0
+                matRestComFolga[i][j]=restricoes[i][j-1]; // dado restrição 10x1+20x2+x1=20 nesse momento -> 0 10 20 0 0 0 0
             }
             else if(j==tamLinha-1)
             {
-               matRestComFolga[i][j]=limitacao[i];
+                matRestComFolga[i][j]=limitacao[i];
             }
             else
             {
-             matRestComFolga[i][j]=0;
+                matRestComFolga[i][j]=0;
             }
 
         }
 
-         matRestComFolga[i][tamVar+cont]=1;
+        matRestComFolga[i][tamVar+cont]=1;
 
         cont++;
 
     }
 
 
-     printf("\n\n");
+    printf("\n\n");
 
 
-     //criando a nova matriz
-float matrizAtt[tamRest+1][tamLinha];
-float menor = 99999999;
-int columIn = -1;
+    //criando a nova matriz
+    float matrizAtt[tamRest+1][tamLinha];
+    float menor = 99999999;
+    int columIn = -1;
 
 
-  for(i=0; i<tamRest+1; i++)
+    for(i=0; i<tamRest+1; i++)
     {
 
 
-        for(j=0;j<tamLinha;j++)
+        for(j=0; j<tamLinha; j++)
         {
-          if(i==0)
-          {
-              matrizAtt[i][j]=linhaZ[j];
-              if(matrizAtt[i][j] < menor)
-              {
-                  menor =  matrizAtt[i][j];
-                  columIn = j;
+            if(i==0)
+            {
+                matrizAtt[i][j]=linhaZ[j];
+                if(matrizAtt[i][j] < menor)
+                {
+                    menor =  matrizAtt[i][j];
+                    columIn = j;
 
-              }
-          }else{
-          matrizAtt[i][j]=matRestComFolga[i-1][j];
-          }
+                }
+            }
+            else
+            {
+                matrizAtt[i][j]=matRestComFolga[i-1][j];
+            }
         }
 
     }
 
-int contFolga =1;
-char z = 'Z';
-char b = 'B';
+    int contFolga =1;
+    char z = 'Z';
+    char b = 'B';
 
-      printf("\n\t\t\t\tALGORITMO 1\n----------------------------------------------------------------------------------------------------\n");
-      //header
-for(i=0;i<tamLinha;i++)
-{
-    if(i==0)
+    printf("\n\t\t\t\tALGORITMO 1\n----------------------------------------------------------------------------------------------------\n");
+    //header
+    for(i=0; i<tamLinha; i++)
     {
-        printf("%*c",EspacoL,z);
-    }
-    else if(i>0&&i<=tamVar)
-    {
-         printf("X%*d",EspacoL,i);
-    }
-    else if(i>tamVar && i<tamLinha-1)
-    {
-        printf("XF%*d",EspacoL,contFolga);
-        contFolga++;
-    }
-    else if(i==tamLinha-1){
-         printf("%*c",EspacoL,b);
-    }
+        if(i==0)
+        {
+            printf("%*c",EspacoL,z);
+        }
+        else if(i>0&&i<=tamVar)
+        {
+            printf("X%*d",EspacoL,i);
+        }
+        else if(i>tamVar && i<tamLinha-1)
+        {
+            printf("XF%*d",EspacoL,contFolga);
+            contFolga++;
+        }
+        else if(i==tamLinha-1)
+        {
+            printf("%*c",EspacoL,b);
+        }
 
-}
+    }
 //exibindo
-  for(i=0; i<tamRest+1; i++)
+    for(i=0; i<tamRest+1; i++)
     {
-       printf("\n");
-        for(j=0;j<tamLinha;j++)
+        printf("\n");
+        for(j=0; j<tamLinha; j++)
         {
-          printf("%-10.1f",matrizAtt[i][j]);
+            printf("%-10.1f",matrizAtt[i][j]);
         }
 
     }
 
 
 
-int linhaOUT=-1;
-menor=99999999;
-float elementoPivo=0;
+    int linhaOUT=-1;
+    menor=99999999;
+    float elementoPivo=0;
 
 
-// pegando linha out e pivo
-for(i=1;i<=tamRest;i++)
-{   //coluna input                               //coeficiente
-    float a = (matrizAtt[i][tamLinha-1] / matrizAtt[i][columIn]);
-    if(a<=menor && a > 0)
+// capturando a linha out e pivo
+    for(i=1; i<=tamRest; i++)
     {
-        menor = a;
-        elementoPivo = matrizAtt[i][columIn];
-        linhaOUT = i;
+        //coluna input                               //coeficiente
+        float a = (matrizAtt[i][tamLinha-1] / matrizAtt[i][columIn]);
+        if(a<=menor && a > 0)
+        {
+            menor = a;
+            elementoPivo = matrizAtt[i][columIn];
+            linhaOUT = i;
 
 
+        }
     }
-}
 //VB e VNB
-float base;
-int contbase=0;
-int cont2=0;
-int linha;
-int tamCol= (tamRest+1);
-char auxVar[100]="";
-char varbasic[100]="";
-char varNbasic[100]="";
-contFolga=1;
+    float base;
+    int contbase=0;
+    int cont2=0;
+    int linha;
+    int tamCol= (tamRest+1);
+    char auxVar[100]="";
+    char varbasic[100]="";
+    char varNbasic[100]="";
+    contFolga=1;
 
-int contOne=0;
-int contZero=0;
-
-
-//criando vn e vnb  x = linha  cont cont2 = coluna
-while(1)
-{
-    for(int x=0; x<tamRest+1; x++)
-    {
-     if(matrizAtt[x][cont2]==1)
-     {
-        contOne++;
-         linha=x;
-     }
-     else if(matrizAtt[x][cont2]==0)
-     {
-              contZero++;
-     }
+    int contOne=0;
+    int contZero=0;
 
 
+
+    while(1)
+    {    // x = linha & cont2 = coluna
+        for(int x=0; x<tamRest+1; x++)
+        {
+            if(matrizAtt[x][cont2]==1)
+            {
+                contOne++;
+                linha=x;
+            }
+            else if(matrizAtt[x][cont2]==0)
+            {
+                contZero++;
+            }
+
+
+        }
+        if(contOne == 1 && contZero == tamRest)
+        {
+
+            if(cont2>0 && cont2<tamLinha-1)
+            {
+                base=matrizAtt[linha][tamLinha-1];
+                if(cont2>tamVar)
+                {
+                    sprintf(auxVar,"XF%d=%.1f\n",contFolga,base);
+                    contFolga++;
+                }
+                else sprintf(auxVar,"X%d=%.1f\n",cont2,base);
+
+
+
+
+                strcat(varbasic,auxVar);
+            }
+
+
+        }
+        else
+        {
+            if(cont2>0 && cont2<tamLinha-1)
+            {
+                if(cont2>tamVar)
+                {
+                    sprintf(auxVar,"XF%d=0\n",contFolga);
+                    contFolga++;
+                }
+                else sprintf(auxVar,"X%d=0\n",cont2);
+
+                strcat(varNbasic,auxVar);
+            }
+        }
+
+
+        contOne=0;
+        contZero=0;
+        cont2++;
+
+        if(cont2==tamLinha) break;
     }
-    if(contOne == 1 && contZero == tamRest){
-
-       if(cont2>0 && cont2<tamLinha-1)
-       {
-            base=matrizAtt[linha][tamLinha-1];
-        if(cont2>tamVar)
-        {
-            sprintf(auxVar,"XF%d=%.1f\n",contFolga,base);
-            contFolga++;
-        }else sprintf(auxVar,"X%d=%.1f\n",cont2,base);
 
 
 
 
-       strcat(varbasic,auxVar);
-       }
 
+    //exibindo solução 1
 
-       }else
-       {
-        if(cont2>0 && cont2<tamLinha-1)
-       {
-            if(cont2>tamVar)
-        {
-           sprintf(auxVar,"XF%d=0\n",contFolga);
-           contFolga++;
-        }else sprintf(auxVar,"X%d=0\n",cont2);
-
-       strcat(varNbasic,auxVar);
-       }
-       }
-
-
-  contOne=0;
-  contZero=0;
-    cont2++;
-
-    if(cont2==tamLinha) break;
-}
+    printf("\n\n\t\t\t\tSolução 1\n----------------------------------------------------------------------------------------------------\n");
+    printf("\n\nVALOR DE Z = 0  --> Solução não Ótima\n");
+    printf("\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
+    printf("\n\nVB\n______________\n%s",varbasic);
+    printf("\n\n");
+    printf("VNB\n______________\n%s",varNbasic);
 
 
 
 
-/*
-while(1)
-{
-    for(int x=1; x<tamCol; x++)
-    {
-     if(matrizAtt[x][cont2]>1 || matrizAtt[x][cont2]<0)
-     {
-        contbase++;
-     }
-     else if(matrizAtt[x][cont2]==1)
-     {
-              contbase++;
-              linha=x;
-     }
 
-    }
-    if(contbase==1){
-
-       if(cont2>0 && cont2<tamLinha-1)
-       {
-            base=matrizAtt[linha][tamLinha-1];
-        if(cont2>tamVar)
-        {
-            sprintf(auxVar,"XF%d=%.1f\n",contFolga,base);
-            contFolga++;
-        }else sprintf(auxVar,"X%d=%.1f\n",cont2,base);
-
-
-
-
-       strcat(varbasic,auxVar);
-       }
-
-
-       }else
-       {
-        if(cont2>0 && cont2<tamLinha-1)
-       {
-            if(cont2>tamVar)
-        {
-           sprintf(auxVar,"XF%d=0\n",contFolga,base);
-           contFolga++;
-        }else sprintf(auxVar,"X%d=0\n",cont2,base);
-
-       strcat(varNbasic,auxVar);
-       }
-       }
-
-
-    contbase=0;
-    cont2++;
-
-    if(cont2==tamLinha) break;
-}
-*/
-
-
-
-
-printf("\n\n\t\t\t\tSolução 1\n----------------------------------------------------------------------------------------------------\n");
-printf("\n\nVALOR DE Z = 0  --> Solução não Ótima\n");
-printf("\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
-printf("\n\nVB\n______________\n%s",varbasic);
-printf("\n\n");
-printf("VNB\n______________\n%s",varNbasic);
-
-/// Até aqui tudo certo DELETAR DPS
-
-
-
-float vLinhaPivo[tamLinha];
-float nLinhaPivo[tamLinha];
-float auxLinhaPivo[tamLinha];
-float novaLinha[tamLinha];
+    float vLinhaPivo[tamLinha];
+    float nLinhaPivo[tamLinha];
+    float auxLinhaPivo[tamLinha];
+    float novaLinha[tamLinha];
 
 //mapeando a velha linha pivo
-for(i=0;i<tamLinha;i++) vLinhaPivo[i] = matrizAtt[linhaOUT][i];
+    for(i=0; i<tamLinha; i++) vLinhaPivo[i] = matrizAtt[linhaOUT][i];
 
 // mapeando a nova linha pivo
-for(i=0;i<tamLinha;i++)
-{
-    nLinhaPivo[i]=(vLinhaPivo[i]/elementoPivo);
-}
+    for(i=0; i<tamLinha; i++)
+    {
+        nLinhaPivo[i]=(vLinhaPivo[i]/elementoPivo);
+    }
 
-float novaMatriz[tamRest+1][tamLinha];
+    float novaMatriz[tamRest+1][tamLinha];
 
 
 //criando a novaMatriz
-for(i=0;i<tamRest+1;i++)
-{
+    for(i=0; i<tamRest+1; i++)
+    {
 
-    for(j=0;j<tamLinha;j++)
+        for(j=0; j<tamLinha; j++)
         {
 
             if(i==linhaOUT)
             {
                 novaMatriz[i][j]=nLinhaPivo[j];
-            }else{
+            }
+            else
+            {
 
-            novaLinha[j]= (matrizAtt[i][columIn]*(-1))*nLinhaPivo[j];
-           novaLinha[j]= novaLinha[j]+matrizAtt[i][j];
-           novaMatriz[i][j]=novaLinha[j];
+                novaLinha[j]= (matrizAtt[i][columIn]*(-1))*nLinhaPivo[j];
+                novaLinha[j]= novaLinha[j]+matrizAtt[i][j];
+                novaMatriz[i][j]=novaLinha[j];
 
             }
 
         }
-}
+    }
 
 
-// testado novaMatriz tudo certo        DELETAR
+    int naoOtimo=0;
+    int contAlgorit =1;
 
-int naoOtimo=0;
-int contAlgorit =1;
-
-while(1)
-{
-     contAlgorit++;
-      printf("\n\n\n\n\n\t\t\t\tALGORITMO %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
-      contFolga=1;
-
- //header
-for(i=0;i<tamLinha;i++)
-{
-    if(i==0)
+    while(1)
     {
-        printf("%*c",EspacoL,z);
-    }
-    else if(i>0&&i<=tamVar)
-    {
-         printf("X%*d",EspacoL,i);
-    }
-    else if(i>tamVar && i<tamLinha-1)
-    {
-        printf("XF%*d",EspacoL,contFolga);
-        contFolga++;
-    }
-    else if(i==tamLinha-1){
-         printf("%*c",EspacoL,b);
-    }
+        contAlgorit++;
+        printf("\n\n\n\n\n\t\t\t\tALGORITMO %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
+        contFolga=1;
 
-} // fim header
+//header
+        for(i=0; i<tamLinha; i++)
+        {
+            if(i==0)
+            {
+                printf("%*c",EspacoL,z);
+            }
+            else if(i>0&&i<=tamVar)
+            {
+                printf("X%*d",EspacoL,i);
+            }
+            else if(i>tamVar && i<tamLinha-1)
+            {
+                printf("XF%*d",EspacoL,contFolga);
+                contFolga++;
+            }
+            else if(i==tamLinha-1)
+            {
+                printf("%*c",EspacoL,b);
+            }
+
+        }
 
 
 
 //exibindo e populando o vetor linhaZ
-  for(i=0; i<tamRest+1; i++)
-    {
-       printf("\n");
-        for(j=0;j<tamLinha;j++)
+        for(i=0; i<tamRest+1; i++)
         {
-              if(i==0)
+            printf("\n");
+            for(j=0; j<tamLinha; j++)
             {
-                linhaZ[j]=novaMatriz[i][j];
+                if(i==0)
+                {
+                    linhaZ[j]=novaMatriz[i][j];
+                }
+
+
+                printf("%-10.1f",novaMatriz[i][j]);
+            }
+
+        }
+
+
+        naoOtimo=0;
+
+//se linha z existe negativo entao 1
+        for(i=0; i<tamLinha; i++)
+        {
+            if(linhaZ[i]<0)
+            {
+                naoOtimo=1;
+            }
+        }
+
+        bzero(auxVar,100);
+        bzero(varbasic,100);
+        bzero(varNbasic,100);
+        contFolga=1;
+
+        cont2=1;
+        contOne=0;
+        contZero=0;
+
+//criando vn e vnb
+        while(1)
+        {
+            for(int x=0; x<tamRest+1; x++)
+            {
+                if(novaMatriz[x][cont2]==1)
+                {
+                    contOne++;
+                    linha=x;
+                }
+                else if(novaMatriz[x][cont2]==0)
+                {
+                    contZero++;
+                }
+
+
+            }
+            if(contOne == 1 && contZero == tamRest)
+            {
+
+                if(cont2>0 && cont2<tamLinha-1)
+                {
+                    base=novaMatriz[linha][tamLinha-1];
+                    if(cont2>tamVar)
+                    {
+                        sprintf(auxVar,"XF%d=%.1f\n",contFolga,base);
+                        contFolga++;
+                    }
+                    else sprintf(auxVar,"X%d=%.1f\n",cont2,base);
+
+
+
+
+                    strcat(varbasic,auxVar);
+                }
+
+
+            }
+            else
+            {
+                if(cont2>0 && cont2<tamLinha-1)
+                {
+                    if(cont2>tamVar)
+                    {
+                        sprintf(auxVar,"XF%d=0\n",contFolga);
+                        contFolga++;
+                    }
+                    else sprintf(auxVar,"X%d=0\n",cont2);
+
+                    strcat(varNbasic,auxVar);
+                }
             }
 
 
-          printf("%-10.1f",novaMatriz[i][j]);
+            contOne=0;
+            contZero=0;
+            cont2++;
+
+            if(cont2==tamLinha) break;
         }
 
-    }
-// tudo certo
 
-
-naoOtimo=0;
-
-//se linha z existe negativo entao 1
-for(i=0;i<tamLinha;i++)
-{
-     if(linhaZ[i]<0)
-     {
-         naoOtimo=1;
-     }
-}
-
-/////////////// tudo certo ate aqui bug abaixo
-
-bzero(auxVar,100);
-bzero(varbasic,100);
-bzero(varNbasic,100);
-contFolga=1;
-
-cont2=1;
-
-contOne=0;
-contZero=0;
-
-//criando vn e vnb  x = linha  cont cont2 = coluna
-while(1)
-{
-    for(int x=0; x<tamRest+1; x++)
-    {
-     if(novaMatriz[x][cont2]==1)
-     {
-        contOne++;
-         linha=x;
-     }
-     else if(novaMatriz[x][cont2]==0)
-     {
-              contZero++;
-     }
-
-
-    }
-    if(contOne == 1 && contZero == tamRest){
-
-       if(cont2>0 && cont2<tamLinha-1)
-       {
-            base=novaMatriz[linha][tamLinha-1];
-        if(cont2>tamVar)
+        if(naoOtimo==1)
         {
-            sprintf(auxVar,"XF%d=%.1f\n",contFolga,base);
-            contFolga++;
-        }else sprintf(auxVar,"X%d=%.1f\n",cont2,base);
+            printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
+            printf("\n\nVALOR DE Z = %.2f --> Solução Não Ótima",linhaZ[tamLinha-1]);
 
+            for(i=0; i<tamRest+1; i++)
+            {
+                for(j=0; j<tamLinha; j++)
+                {
+                    matrizAtt[i][j]=novaMatriz[i][j];
+                }
+            }
 
-
-
-       strcat(varbasic,auxVar);
-       }
-
-
-       }else
-       {
-        if(cont2>0 && cont2<tamLinha-1)
-       {
-            if(cont2>tamVar)
+        }
+        else if(naoOtimo==0)
         {
-           sprintf(auxVar,"XF%d=0\n",contFolga);
-           contFolga++;
-        }else sprintf(auxVar,"X%d=0\n",cont2);
-
-       strcat(varNbasic,auxVar);
-       }
-       }
-
-
-  contOne=0;
-  contZero=0;
-    cont2++;
-
-    if(cont2==tamLinha) break;
-}
-
-
-if(naoOtimo==1)
-{
-    printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
-    printf("\n\nVALOR DE Z = %.2f --> Solução Não Ótima",linhaZ[tamLinha-1]);
-
-    for(i=0; i<tamRest+1; i++)
-    {
-        for(j=0;j<tamLinha;j++){matrizAtt[i][j]=novaMatriz[i][j];}
-    }
-
-}
-else if(naoOtimo==0)
-{
-    printf("\n\n\t\t\t\tSolução %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
-    printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    printf("\n \t\t\tVALOR DE Z = %.2f --> Solução Ótima",linhaZ[tamLinha-1]);
-    printf("\n\nVB\n______________\n%s",varbasic);
-    printf("\n\n");
-    printf("VNB\n______________\n%s",varNbasic);
-    printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    printf("\nAperte enter para sair");
-    getchar();
-    exit(0);
-    break;
-}
+            printf("\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            printf("\n\n\t\t\t\tSolução %d\n",contAlgorit);
+            printf("\n \t\t\tVALOR DE Z = %.2f --> Solução Ótima",linhaZ[tamLinha-1]);
+            printf("\n\nVB\n______________\n%s",varbasic);
+            printf("\n\n");
+            printf("VNB\n______________\n%s",varNbasic);
+            printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            printf("\nAperte enter para sair");
+            getchar();
+            exit(0);
+            break;
+        }
 
 // nova linha
 
-linhaOUT=-1;
-menor=99999999;
-elementoPivo=0;
+        linhaOUT=-1;
+        menor=99999999;
+        elementoPivo=0;
 
- for(i=0; i<tamLinha; i++)
-    {
-     if(matrizAtt[0][i]<menor)
-     {
-         menor = matrizAtt[0][i];
-         columIn=i;
-     }
-    }
-
-    menor=99999999;
-
-for(i=1;i<=tamRest;i++)
-{   //coluna input                               //coeficiente
-    float a = (matrizAtt[i][tamLinha-1] / matrizAtt[i][columIn]);
-
-    if(a<menor && a > 0)
-    {
-        menor = a;
-        elementoPivo = matrizAtt[i][columIn];
-        linhaOUT = i;
-
-
-    }
-}
-
-
-
-
-printf("\n\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
-
-printf("\n\nVB\n______________\n%s",varbasic);
-printf("\n\n");
-printf("VNB\n______________\n%s",varNbasic);
-
-
-for(i=0;i<tamLinha;i++) vLinhaPivo[i] = matrizAtt[linhaOUT][i];
-
-for(i=0;i<tamLinha;i++)
-{
-    nLinhaPivo[i]=(vLinhaPivo[i]/elementoPivo);
-
-}
-
-
-
-
-for(i=0;i<tamRest+1;i++)
-{
-
-    for(j=0;j<tamLinha;j++)
+        for(i=0; i<tamLinha; i++)
         {
-
-            if(i==linhaOUT)
+            if(matrizAtt[0][i]<menor)
             {
-                novaMatriz[i][j]=nLinhaPivo[j];
-            }else{
+                menor = matrizAtt[0][i];
+                columIn=i;
+            }
+        }
 
-            novaLinha[j]= (matrizAtt[i][columIn]*(-1))*nLinhaPivo[j];
-           novaLinha[j]= novaLinha[j]+matrizAtt[i][j];
-           novaMatriz[i][j]=novaLinha[j];
+        menor=99999999;
+
+        for(i=1; i<=tamRest; i++)
+        {
+            //coluna input                               //coeficiente
+            float a = (matrizAtt[i][tamLinha-1] / matrizAtt[i][columIn]);
+
+            if(a<menor && a > 0)
+            {
+                menor = a;
+                elementoPivo = matrizAtt[i][columIn];
+                linhaOUT = i;
+
 
             }
+        }
+
+
+
+
+        printf("\n\nElemento pivo[%.1f] na Coluna[%d]",elementoPivo,columIn+1);
+
+        printf("\n\nVB\n______________\n%s",varbasic);
+        printf("\n\n");
+        printf("VNB\n______________\n%s",varNbasic);
+
+
+
+        //populando velha linha pivo
+        for(i=0; i<tamLinha; i++) vLinhaPivo[i] = matrizAtt[linhaOUT][i];
+
+        // populando nova linha pivo
+        for(i=0; i<tamLinha; i++)
+        {
+            nLinhaPivo[i]=(vLinhaPivo[i]/elementoPivo);
 
         }
-}
 
 
 
+        //atualizando nova matriz
+        for(i=0; i<tamRest+1; i++)
+        {
+
+            for(j=0; j<tamLinha; j++)
+            {
+
+                if(i==linhaOUT)
+                {
+                    novaMatriz[i][j]=nLinhaPivo[j];
+                }
+                else
+                {
+
+                    novaLinha[j]= (matrizAtt[i][columIn]*(-1))*nLinhaPivo[j];
+                    novaLinha[j]= novaLinha[j]+matrizAtt[i][j];
+                    novaMatriz[i][j]=novaLinha[j];
+
+                }
+
+            }
+        }
 
 
-
-
-
-
-
-
-
-
-
-
-}//fim while
+    }//fim while
 
 
 
