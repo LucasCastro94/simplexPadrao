@@ -339,6 +339,71 @@ char varbasic[100]="";
 char varNbasic[100]="";
 contFolga=1;
 
+int contOne=0;
+int contZero=0;
+
+
+//criando vn e vnb  x = linha  cont cont2 = coluna
+while(1)
+{
+    for(int x=0; x<tamRest+1; x++)
+    {
+     if(matrizAtt[x][cont2]==1)
+     {
+        contOne++;
+         linha=x;
+     }
+     else if(matrizAtt[x][cont2]==0)
+     {
+              contZero++;
+     }
+
+
+    }
+    if(contOne == 1 && contZero == tamRest){
+
+       if(cont2>0 && cont2<tamLinha-1)
+       {
+            base=matrizAtt[linha][tamLinha-1];
+        if(cont2>tamVar)
+        {
+            sprintf(auxVar,"XF%d=%.1f\n",contFolga,base);
+            contFolga++;
+        }else sprintf(auxVar,"X%d=%.1f\n",cont2,base);
+
+
+
+
+       strcat(varbasic,auxVar);
+       }
+
+
+       }else
+       {
+        if(cont2>0 && cont2<tamLinha-1)
+       {
+            if(cont2>tamVar)
+        {
+           sprintf(auxVar,"XF%d=0\n",contFolga);
+           contFolga++;
+        }else sprintf(auxVar,"X%d=0\n",cont2);
+
+       strcat(varNbasic,auxVar);
+       }
+       }
+
+
+  contOne=0;
+  contZero=0;
+    cont2++;
+
+    if(cont2==tamLinha) break;
+}
+
+
+
+
+/*
 while(1)
 {
     for(int x=1; x<tamCol; x++)
@@ -392,6 +457,10 @@ while(1)
 
     if(cont2==tamLinha) break;
 }
+*/
+
+
+
 
 printf("\n\n\t\t\t\tSolução 1\n----------------------------------------------------------------------------------------------------\n");
 printf("\n\nVALOR DE Z = 0  --> Solução não Ótima\n");
@@ -400,7 +469,7 @@ printf("\n\nVB\n______________\n%s",varbasic);
 printf("\n\n");
 printf("VNB\n______________\n%s",varNbasic);
 
-
+/// Até aqui tudo certo DELETAR DPS
 
 
 
@@ -443,12 +512,13 @@ for(i=0;i<tamRest+1;i++)
 }
 
 
+// testado novaMatriz tudo certo        DELETAR
+
 int naoOtimo=0;
 int contAlgorit =1;
 
 while(1)
 {
-
      contAlgorit++;
       printf("\n\n\n\n\n\t\t\t\tALGORITMO %d\n----------------------------------------------------------------------------------------------------\n",contAlgorit);
       contFolga=1;
@@ -473,8 +543,11 @@ for(i=0;i<tamLinha;i++)
          printf("%*c",EspacoL,b);
     }
 
-}
-//exibindo
+} // fim header
+
+
+
+//exibindo e populando o vetor linhaZ
   for(i=0; i<tamRest+1; i++)
     {
        printf("\n");
@@ -490,7 +563,7 @@ for(i=0;i<tamLinha;i++)
         }
 
     }
-
+// tudo certo
 
 
 naoOtimo=0;
@@ -504,30 +577,36 @@ for(i=0;i<tamLinha;i++)
      }
 }
 
-//// bug no exercicio 8
+/////////////// tudo certo ate aqui bug abaixo
 
 bzero(auxVar,100);
 bzero(varbasic,100);
 bzero(varNbasic,100);
 contFolga=1;
 
-cont2=0;
+cont2=1;
+
+contOne=0;
+contZero=0;
+
+//criando vn e vnb  x = linha  cont cont2 = coluna
 while(1)
 {
-    for(int x=1; x<tamCol; x++)
+    for(int x=0; x<tamRest+1; x++)
     {
-     if(novaMatriz[x][cont2]>1 || novaMatriz[x][cont2]<0)
+     if(novaMatriz[x][cont2]==1)
      {
-        contbase++;
+        contOne++;
+         linha=x;
      }
-     else if(novaMatriz[x][cont2]==1)
+     else if(novaMatriz[x][cont2]==0)
      {
-              contbase++;
-              linha=x;
+              contZero++;
      }
 
+
     }
-    if(contbase==1){
+    if(contOne == 1 && contZero == tamRest){
 
        if(cont2>0 && cont2<tamLinha-1)
        {
@@ -551,16 +630,17 @@ while(1)
        {
             if(cont2>tamVar)
         {
-           sprintf(auxVar,"XF%d=0\n",contFolga,base);
+           sprintf(auxVar,"XF%d=0\n",contFolga);
            contFolga++;
-        }else sprintf(auxVar,"X%d=0\n",cont2,base);
+        }else sprintf(auxVar,"X%d=0\n",cont2);
 
        strcat(varNbasic,auxVar);
        }
        }
 
 
-    contbase=0;
+  contOne=0;
+  contZero=0;
     cont2++;
 
     if(cont2==tamLinha) break;
